@@ -9,9 +9,6 @@ commands:
   warzones:
     description: (War) Lists the warzones on the server. Each warzone is an independent TDM arena.
     usage: /warzones
-  zones:
-    description: (War) Shortcut for /warzones.
-    usage: /zones
   warzone:
     description: (War) Teleports you to the specified warzone's lobby.
     usage: /warzone ziggy
@@ -26,16 +23,16 @@ commands:
     usage:
        - Must be standing in warzone or lobby.
        - /teams
-  join:
+  join-war:
     description: (War) Use to change teams. Also used instead of walking in the team gate in the lobby.
     usage:
        - Must be standing in warzone or lobby. 
-       - /join <team color>
-  leave:
+       - /join-war <team color>
+  leave-war:
     description: (War) Use to leave a warzone. Teleports you back to the lobby.
     usage:
        - Must be in team already. 
-       - /leave
+       - /leave-war
   team:
     description: (War) Team chat. 
     usage: /team Leeeroooy!!!

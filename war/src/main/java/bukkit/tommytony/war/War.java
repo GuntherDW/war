@@ -119,11 +119,11 @@ public class War extends JavaPlugin {
 
 		pm.registerEvent(Event.Type.ENTITY_EXPLODE, entityListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Normal, this);
-		pm.registerEvent(Event.Type.ENTITY_DAMAGED, entityListener, Priority.Normal, this);
+		pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.ENTITY_COMBUST, entityListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Priority.Normal, this);
 		
-		pm.registerEvent(Event.Type.BLOCK_PLACED, blockListener, Priority.Normal, this);
+		pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Priority.Normal, this);
 		pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Priority.Normal, this);
 		
 		//pm.registerEvent(Event.Type.CHUNK_UNLOADED, blockListener, Priority.Normal, this);
@@ -166,15 +166,16 @@ public class War extends JavaPlugin {
 			}
 		
 			// Player commands: /warzones, /warzone, /teams, /join, /leave
-			if(command.equals("zones") || command.equals("warzones")){
+			// if(command.equals("zones") || command.equals("warzones")){
+            if(command.equals("warzones")) {
 				performZones(player);
 			} else if(command.equals("zone") || command.equals("warzone")) {
 				performZone(player, arguments);
 			} else if(command.equals("teams")){
 				performTeams(player);
-			} else if(command.equals("join") && canPlayWar(player)) {
+			} else if(command.equals("join-war") && canPlayWar(player)) {
 				performJoin(player, arguments);
-			} else if(command.equals("leave")) {
+			} else if(command.equals("leave-war")) {
 				performLeave(player);
 			} else if(command.equals("team")) {
 				performTeam(player, arguments);
@@ -475,7 +476,7 @@ public class War extends JavaPlugin {
 				// new team flag
 				team.setTeamFlag(player.getLocation());
 				Location playerLoc = player.getLocation();
-				player.teleportTo(new Location(playerLoc.getWorld(), 
+				player.teleport(new Location(playerLoc.getWorld(),
 						playerLoc.getBlockX()+1, playerLoc.getBlockY(), playerLoc.getBlockZ()));
 				this.msg(player, "Team " + team.getName() + " flag added here.");
 				WarzoneMapper.save(this, warzone, false);
@@ -484,7 +485,7 @@ public class War extends JavaPlugin {
 				team.getFlagVolume().resetBlocks();
 				team.setTeamFlag(player.getLocation());
 				Location playerLoc = player.getLocation();
-				player.teleportTo(new Location(playerLoc.getWorld(), 
+				player.teleport(new Location(playerLoc.getWorld(),
 						playerLoc.getBlockX()+1, playerLoc.getBlockY(), playerLoc.getBlockZ()+1));
 				this.msg(player, "Team " + team.getName() + " flag moved.");
 				WarzoneMapper.save(this, warzone, false);
@@ -577,7 +578,7 @@ public class War extends JavaPlugin {
 				team.teamcast("The war has ended. " + playerListener.getAllTeamsMsg(player) + " Resetting warzone " + warzone.getName() + " and teams...");
 				for(Player p : team.getPlayers()) {
 					warzone.restorePlayerInventory(p);
-					p.teleportTo(warzone.getTeleport());
+					p.teleport(warzone.getTeleport());
 					this.msg(player, "You have left the warzone. Your inventory has (hopefully) been restored.");
 				}
 				team.setPoints(0);
@@ -885,7 +886,7 @@ public class War extends JavaPlugin {
 			if(playerTeam != null) { // was in zone
 				playerWarzone.handlePlayerLeave(player, this.getWarHub().getLocation(), true);
 			}
-			player.teleportTo(this.getWarHub().getLocation());
+			player.teleport(this.getWarHub().getLocation());
 		}
 	}
 
@@ -907,7 +908,7 @@ public class War extends JavaPlugin {
 
 	public void performLeave(Player player) {
 		if(!this.inAnyWarzone(player.getLocation()) || this.getPlayerTeam(player.getName()) == null) {
-			this.badMsg(player, "Usage: /leave. " +
+			this.badMsg(player, "Usage: /leave-war. " +
 					"Must be in a team already.");
 		} else {
 			Warzone zone = getPlayerTeamWarzone(player.getName());
@@ -961,7 +962,7 @@ public class War extends JavaPlugin {
 					if(team.getName().startsWith(name) || team.getKind() == kind) {
 						if(!warzone.hasPlayerInventory(player.getName())) {
 							warzone.keepPlayerInventory(player);
-							this.msg(player, "Your inventory is in storage until you /leave.");
+							this.msg(player, "Your inventory is in storage until you /leave-war.");
 						}
 						if(team.getPlayers().size() < warzone.getTeamCap()) {
 							team.addPlayer(player);
@@ -1011,7 +1012,7 @@ public class War extends JavaPlugin {
 						Warzone playerWarzone = getPlayerTeamWarzone(player.getName());
 						playerWarzone.handlePlayerLeave(player, warzone.getTeleport(), true);
 					} else {					
-						player.teleportTo(warzone.getTeleport());
+						player.teleport(warzone.getTeleport());
 					}
 					warped = true;
 					break;

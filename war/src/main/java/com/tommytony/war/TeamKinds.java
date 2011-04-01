@@ -15,7 +15,7 @@ public class TeamKinds {
 	private static final List<TeamKind> teamKinds = new ArrayList<TeamKind>();  
 
 	static {
-		getTeamkinds().add(new TeamKind("white", Material.WOOL, (byte) 0, ChatColor.WHITE));
+		/* getTeamkinds().add(new TeamKind("white", Material.WOOL, (byte) 0, ChatColor.WHITE));
 		getTeamkinds().add(new TeamKind("orange", Material.WOOL, (byte) 1, ChatColor.GOLD));
 		getTeamkinds().add(new TeamKind("magenta", Material.WOOL, (byte) 2, ChatColor.LIGHT_PURPLE));
 		getTeamkinds().add(new TeamKind("blue", Material.WOOL, (byte) 3, ChatColor.BLUE));
@@ -30,7 +30,12 @@ public class TeamKinds {
 		getTeamkinds().add(new TeamKind("brown", Material.WOOL, (byte) 12, ChatColor.DARK_RED));
 		getTeamkinds().add(new TeamKind("darkgreen", Material.WOOL, (byte) 13, ChatColor.DARK_GREEN));
 		getTeamkinds().add(new TeamKind("red", Material.WOOL, (byte) 14, ChatColor.RED));
-		getTeamkinds().add(new TeamKind("black", Material.WOOL, (byte) 15, ChatColor.BLACK));
+		getTeamkinds().add(new TeamKind("black", Material.WOOL, (byte) 15, ChatColor.BLACK)); */
+		getTeamkinds().add(new TeamKind("Water", Material.LAPIS_BLOCK, (byte) 3, ChatColor.BLUE));
+		getTeamkinds().add(new TeamKind("Air", Material.GLASS, (byte) 4, ChatColor.YELLOW)); // yellow = gold
+		getTeamkinds().add(new TeamKind("Earth", Material.SOUL_SAND, (byte) 5, ChatColor.GREEN));
+		getTeamkinds().add(new TeamKind("Fire", Material.NETHERRACK, (byte) 14, ChatColor.RED));
+		getTeamkinds().add(new TeamKind("Admins", Material.SPONGE, (byte) 15, ChatColor.BLACK));
 	}
 	
 	public static TeamKind teamKindFromString(String str) {
