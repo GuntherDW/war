@@ -347,8 +347,9 @@ public class WarPlayerListener extends PlayerListener {
 			
 			// Flag capture
 			if(playerWarzone.isFlagThief(player.getName()) 
-					&& (team.getSpawnVolume().contains(player.getLocation())
-							|| (team.getFlagVolume() != null && team.getFlagVolume().contains(player.getLocation())))) {
+					&& (team.getSpawnVolume().contains(player.getLocation()))) {
+					//		|| (team.getFlagVolume() != null && team.getFlagVolume().contains(player.getLocation())))) {
+
 				if(playerWarzone.isTeamFlagStolen(team)) {
 					war.badMsg(player, "You can't capture the enemy flag until your team's flag is returned.");
 				} else {
